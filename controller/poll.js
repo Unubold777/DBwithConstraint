@@ -51,9 +51,13 @@ exports.createPoll = asyncHandler(async (req,res,next) => {
     
     
 
-    //code below doing different thing other than creating
+    //getAllpolls
+    exports.getPolls = asyncHandler(async(req,res,next) =>{
+    users.findAll({
+        order : [["id","DESC"]],
+        raw : true,
+        })
     let poll_list = [];
-
     conn_result.forEach((poll) => {
     if (poll.id) {
       poll_list.push({
@@ -64,4 +68,4 @@ exports.createPoll = asyncHandler(async (req,res,next) => {
       });
     }
   });
-
+});

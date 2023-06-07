@@ -6,7 +6,7 @@ const asyncHandler = require("../middleware/asyncHandler")
 
 const Users = require("../sequelize/models/users");
 const fs = require("fs");
-const path = require("path");
+const path = require("path"); 
 
 exports.createUser = asyncHandler(async (req, res, next) => {
     //Бүртгүүлэх хэсэг
@@ -41,6 +41,8 @@ exports.createUser = asyncHandler(async (req, res, next) => {
             username: username,
             email: email,
             password: encryptedPassword,
+            birthdate: birthdate,
+            role: 'User'
           }).then(async (result) => {
             return res.status(200).json({
               success: true,
@@ -64,3 +66,23 @@ exports.createUser = asyncHandler(async (req, res, next) => {
         });
       });
   });
+
+  exports.getUsers = asyncHandler(async (req,res,next) => {
+    //method for admin that gets every users
+    Users.findAll({
+      order : [["id","DESC"]],
+      raw : true,
+    }).then(async(result)=> {
+        let user_list =[];
+        result.forEach((result)=>
+        user_list.push({
+          id: result.id,
+          username: result.username,
+          email: result.email,
+          birthdate: result.birthdate,
+          role: result.role,
+        },));
+
+      }
+    )
+  }); 
