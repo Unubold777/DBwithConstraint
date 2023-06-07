@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   polls.init({
+    id:{
+      type:DataTypes.INTEGER,
+      primaryKey:true
+    },
     userid:{
       type:DataTypes.INTEGER,
       allowNull:true

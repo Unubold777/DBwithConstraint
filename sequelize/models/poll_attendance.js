@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   poll_attendance.init({
+    id:{
+      type:DataTypes.INTEGER,
+      primaryKey:true
+    },
     pollid: DataTypes.INTEGER,
     userid: DataTypes.INTEGER,
     answerid: DataTypes.INTEGER
