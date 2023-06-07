@@ -23,6 +23,7 @@ module.exports = {
           model:'users',
           key:'id'
         },
+        allowNull:true,
         onDelete:'SET NULL'
       },
       comment: {
