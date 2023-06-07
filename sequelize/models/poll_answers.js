@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   poll_answers.init({
+    id:{
+      type:DataTypes.INTEGER,
+      primaryKey:true
+    },
     pollid: DataTypes.INTEGER,
     answername: DataTypes.STRING
   }, {
