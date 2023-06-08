@@ -19,7 +19,7 @@ exports.createUsers = asyncHandler(async (req, res, next) => {
         message: "Талбар дутуу байна",
       });
     }
-  
+
     await Users.findAll({
       where: {
         [Op.and]: [
@@ -83,3 +83,60 @@ exports.createUsers = asyncHandler(async (req, res, next) => {
       message: "List of users"
       });
     });  
+    exports.registerUser = asyncHandler(async (req,res,next)=>{
+      const {username,email,password,birthdate,role} =req.body;
+      
+    if (!username || !email || !password || !birthdate) {
+      return res.status(400).json({
+        success: false,
+        message: "Талбар дутуу байна",
+      });
+    }
+    await Users.findAll({
+      where: {
+        [Op.and]: [
+          {
+            username: username,
+          },
+          {
+            email: email,
+          },
+         
+        ],
+      },
+    })
+      .then(async (result) => {
+        if (result == null) {
+          const salt = await bcrypt.genSalt(10);
+          let encryptedPassword = await bcrypt.hash(password, salt);
+  
+          await Users.create({
+            username: username,
+            email: email,
+            password: encryptedPassword,
+            birthdate: birthdate,
+            role: 'User'
+          }).then(async (result) => {
+            return res.status(200).json({
+              success: true,
+              // token: encryptedPassword,
+              message: "Амжилттай бүртгэлээ",
+            });
+          });
+        } else {
+          res.status(500).json({
+            success: false,
+            message: "Бүртэлтэй байна",
+          });
+          return;
+        }
+      }).then(async (result) => {
+        return res.status(200).json({
+          success: true,
+          // token: encryptedPassword,
+          message: "Амжилттай бүртгэлээ",
+        });
+      });
+  });
+      
+

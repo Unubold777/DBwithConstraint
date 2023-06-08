@@ -9,5 +9,5 @@ const {
   
   router.route("/create_poll").post(protect, createPoll);
   router.route("/").get(protect, getPolls);
-  router.route("/poll/:id", post(protect, getPoll));
+  router.route("/poll/:id", get(protect, getPoll));
   module.exports = router;

@@ -18,7 +18,6 @@ exports.getPollAttendance = async (req, res, next) => {
       const answerNums = [];
       for(ans in answers) {
         let temp =0;
-        
         let attendancy = await poll_attendance.findAll({
             where: {
                 pollid:pollid,
