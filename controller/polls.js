@@ -4,6 +4,7 @@ const { Op, QueryTypes } = require("sequelize");
 const poll = require("../sequelize/models/polls");
 var Sequelize = require("../sequelize");
 const e = require("express");
+const polls = require("../sequelize/models/polls");
 const logger = require("../services/logger").logger;
 
 exports.createPoll = asyncHandler(async (req,res,next) => {
@@ -52,20 +53,20 @@ exports.createPoll = asyncHandler(async (req,res,next) => {
     
 
     //getAllpolls
-    exports.getPolls = asyncHandler(async(req,res,next) =>{
-    users.findAll({
-        order : [["id","DESC"]],
-        raw : true,
-        })
-    let poll_list = [];
-    conn_result.forEach((poll) => {
-    if (poll.id) {
-      poll_list.push({
-        name: poll.userid,
-        question: poll.question,
-        startdate: poll.startdate,
-        expiredate: poll.expiredate
+    exports.getPolls = asyncHandler(async (req, res, next) => {
+        try {
+          const userid = req.params.userid; 
+          const polls = await Polls.findAll({
+            where: {
+              userid: userId, 
+            },
+            order: [["id", "DESC"]],
+            raw: true,
+          });
+      
+          res.status(200).json(polls);
+        } catch (error) {
+          res.status(400).json({ error: error.message });
+        }
       });
-    }
-  });
-});
+      

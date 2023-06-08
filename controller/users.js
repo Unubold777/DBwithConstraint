@@ -7,7 +7,8 @@ const asyncHandler = require("../middleware/asyncHandler")
 const Users = require("../sequelize/models/users");
 const fs = require("fs");
 const path = require("path"); 
-
+//const users = require("../sequelize/models/users");
+const { raw } = require("body-parser");
 exports.createUsers = asyncHandler(async (req, res, next) => {
     //Бүртгүүлэх хэсэг
     const { username, email, password, birthdate} = req.body;
@@ -19,7 +20,7 @@ exports.createUsers = asyncHandler(async (req, res, next) => {
       });
     }
   
-    await Users.findOne({
+    await Users.findAll({
       where: {
         [Op.and]: [
           {
@@ -69,20 +70,17 @@ exports.createUsers = asyncHandler(async (req, res, next) => {
 
   exports.getUsers = asyncHandler(async (req,res,next) => {
     //method for admin that gets every users
-    Users.findAll({
-      order : [["id","DESC"]],
-      raw : true,
-    }).then(async(result)=> {
-        let user_list =[];
-        result.forEach((result)=>
-        user_list.push({
-          id: result.id,
-          username: result.username,
-          email: result.email,
-          birthdate: result.birthdate,
-          role: result.role,
-        },));
+      users.findAll({
+        raw: true,   
+        order: [["id","DESC"]],
+        raw: true,
+      }).catch((err) => {
+        res.status(500).json({
+          message: "Серверийн алдаа",
+        });
+      });
 
-      }
-    );
-  }); 
+      res.status(200).json({
+      message: "List of users"
+      });
+    });  

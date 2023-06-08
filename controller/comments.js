@@ -26,38 +26,38 @@ exports.createComment = asyncHandler(async(req,res,netx) =>{
         res.status(400).json({ error: e.message });
       }
 });
-exports.getComments = asyncHandler(async(req, res, next) => {
-  try {
-    const { pollid } = req.params;
-    const comments = await comments.find({
-      where: {
-        [Op.and]: [{pollid:pollid}],
-        order : [["posteddate","DESC"]],
-    }
-    }).then(async(result)=> {
-      let comment_list =[];
-      result.forEach((result)=>
-      comment_list.push({
-        id:result.id,
-        pollid:result.pollid,
-        userid:result.userid,
-        comment:result.comment,
-        posteddate:result.posteddate,
-      },));
-
-    }
-  );
-    res.status(200).json(comments);
-  } catch (e) {
-    res.status(400).json({ error: e.message });
-  }
-});
+// exports.getComments = asyncHandler(async(req, res, next) => {
+//   try {
+//     const { pollid } = req.params;
+//     const comments = await comments.find({
+//       where: {
+//         [Op.and]: [{pollid:pollid}],
+//         order : [["posteddate","DESC"]],
+//     }
+//     }).
+//     res.status(200).json(comments);
+//   } catch (e) {
+//     res.status(400).json({ error: e.message });
+//   }
+// });
+//writing another getComments
+  exports.getComments = asyncHandler(async(req, res, next)=>{
+    const {pollid} = req.params;
+    comments.findAll({
+      where : {
+        pollid : pollid,
+        order: [["posteddate","DESC"]],
+        raw: true
+      }
+    })
+    res.status(200).json(commentos);
+  });
 
 exports.editComments = asyncHandler(async(req,res,next)=>{
   try {
     const { commentsid } = req.params;
     const user = req.user;
-    const comment = await Comment.findById();
+    const comment = await comments.findById();
     if ( commentsid+ "" !== usersid + "") {
       throw new Error("You cannot edit that comment, because you not owner");
     }

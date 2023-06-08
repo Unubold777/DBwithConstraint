@@ -11,20 +11,18 @@ var Sequelize = require("../sequelize");
 const e = require("express");
 const logger = require("../services/logger").logger;
 
-exports.getPollAttendance = asyncHandler(async(req.res.next)=>
-try{
-    const {pollid} = req.pollid;
-    const  = await polls.find({
-        where : {
-            [Op.and]:[{ pollid:pollid}],
-            
-        }
-    }).then(async(result)=>{
-        let attendace = [];
-        result.forEach((result)=>
+exports.getPollAttendance = async (req, res, next) => {
+    try {
+      const {pollid} = req.params;
+      const answers = await poll_answers.findById(pollid);
+      const answerNums = [];
+      for (num of answers.comments) {
+        let temp = 0;
         
-        )
-    })
-}catch(e){
-    res.status(400).json({error:e.message});
-});
+        comments.push(await Comment.findById(com));
+      }
+      res.status(200).json(comments);
+    } catch (e) {
+      res.status(400).json({ error: e.message });
+    }
+  };
