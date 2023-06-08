@@ -16,10 +16,17 @@ exports.getPollAttendance = async (req, res, next) => {
       const {pollid} = req.params;
       const answers = await poll_answers.findById(pollid);
       const answerNums = [];
-      for (num of answers.comments) {
-        let temp = 0;
+      for(ans in answers) {
+        let temp =0;
         
-        comments.push(await Comment.findById(com));
+        let attendancy = await poll_attendance.findAll({
+            where: {
+                pollid:pollid,
+                answerid:ans.id,
+            }
+        });
+        temp = attendancy.length;
+        answerNums.push(temp)
       }
       res.status(200).json(comments);
     } catch (e) {
