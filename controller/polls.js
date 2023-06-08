@@ -25,7 +25,7 @@ exports.createPoll = asyncHandler(async (req,res,next) => {
                 const new_poll = await poll.create({
                     userid: user.id,
                     question: question,
-                    startdate: startdate,
+                    startdate: Date.now(),
                     expiredate: expiredate,
                   }).then(async (result) => {
                     let new_poll_id = new_poll.id

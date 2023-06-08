@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'poll_attendance',
   });
-  poll_attendance.associate = model => {
+  poll_attendance.associate = models => {
     poll_attendance.belongsTo(models.users,{
       foreignKey:'userid',
       onDelete:'CASCADE'

@@ -8,7 +8,7 @@ const Users = require("../sequelize/models/users");
 const fs = require("fs");
 const path = require("path"); 
 
-exports.createUser = asyncHandler(async (req, res, next) => {
+exports.createUsers = asyncHandler(async (req, res, next) => {
     //Бүртгүүлэх хэсэг
     const { username, email, password, birthdate} = req.body;
   
@@ -84,5 +84,5 @@ exports.createUser = asyncHandler(async (req, res, next) => {
         },));
 
       }
-    )
+    );
   }); 

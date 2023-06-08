@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'comments',
   });
-  comments.associate = model =>{
+  comments.associate = models =>{
     comments.belongsTo(models.users,{
       foreignKey:'userid',
       onDelete:'SET NULL'

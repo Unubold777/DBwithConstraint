@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'poll_answers',
   });
-  poll_answers.associate = model => {
+  poll_answers.associate = models => {
     poll_answers.belongsTo(models.polls,{
       foreignKey:'pollid',
       onDelete:'CASCADE'

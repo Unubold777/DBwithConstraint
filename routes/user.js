@@ -1,4 +1,4 @@
-const { uploadImageProfile, createUser } = require("../controller/user");
+//const { uploadImageProfile, createUser } = require("../controller/user");
 const { protect } = require("../middleware/protect");
 
 const router = require("express").Router();

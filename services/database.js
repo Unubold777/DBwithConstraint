@@ -1,4 +1,4 @@
-const { Pool } = require("pg");
+/*const { Pool } = require("pg");
 const { Sequelize, DataTypes, Op } = require("sequelize");
 let pool;
 const sequelize = new Sequelize(
@@ -45,4 +45,4 @@ async function close() {
 module.exports = sequelize;
 
 module.exports.initialize = initialize;
-module.exports.close = close;
+module.exports.close = close;*/
