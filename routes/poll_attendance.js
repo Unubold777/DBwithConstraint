@@ -5,6 +5,6 @@ const {
   
   const router = require("express").Router();
   
-  router.route("/poll_attendance").get(protect, getPollAttendance);
+  router.route("/poll/:id/result").get(protect, getPollAttendance);
 
   module.exports = router;
