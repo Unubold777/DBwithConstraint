@@ -4,6 +4,7 @@ const { Op, QueryTypes } = require("sequelize");
 const comment = require("../sequelize/models/comments");
 var Sequelize = require("../sequelize");
 const e = require("express");
+const comments = require("../sequelize/models/comments");
 const logger = require("../services/logger").logger;
 
 exports.createComment = asyncHandler(async(req,res,netx) =>{
@@ -28,7 +29,7 @@ exports.createComment = asyncHandler(async(req,res,netx) =>{
 exports.getComments = asyncHandler(async(req, res, next) => {
   try {
     const { pollid } = req.params;
-    const comments = await Story.find({
+    const comments = await comments.find({
       where: {
         [Op.and]: [{pollid:pollid}],
         order : [["posteddate","DESC"]],

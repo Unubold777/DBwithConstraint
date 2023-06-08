@@ -1,7 +1,7 @@
 const asyncHandler = require("../middleware/asyncHandler");
 //const db = require("../services/database");
 const { Op, QueryTypes } = require("sequelize");
-const poll = require("../sequelize/models/users");
+const poll = require("../sequelize/models/polls");
 var Sequelize = require("../sequelize");
 const e = require("express");
 const logger = require("../services/logger").logger;
