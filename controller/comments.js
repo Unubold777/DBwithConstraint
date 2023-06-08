@@ -9,7 +9,7 @@ const logger = require("../services/logger").logger;
 
 exports.createComment = asyncHandler(async(req,res,netx) =>{
     try {
-        const {pollid} = req.params;
+        const {pollid} = req.params.pollid;
         const {comment} = req.body;
         const poll = await poll.findById(pollid);
         if (!poll) {

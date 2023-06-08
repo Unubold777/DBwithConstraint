@@ -7,8 +7,8 @@ const {
   
   const router = require("express").Router();
   
-  router.route("/comments").post(protect, createComment);
-  router.route("/comments").get(protect, getComments);
+  router.route("/polls/:id").post(protect, createComment);
+  router.route("/polls/:id").get(protect, getComments);
   router.route("/comments").put(protect, editComments);
 
   module.exports = router;

@@ -10,7 +10,7 @@ const logger = require("../services/logger").logger;
 exports.createPoll = asyncHandler(async (req,res,next) => {
     const {userid} = req.params
     const { question,startdate,expiredate, answer} = req.body
-    if(!question || !startdate || !expiredate) {
+    if(!question || !startdate || !expiredate || !answer) {
         return res.status(400).json({
             success:false,
             message:"table is empty!!!",
@@ -38,7 +38,7 @@ exports.createPoll = asyncHandler(async (req,res,next) => {
                     }
                     return res.status(200).json({
                       success: true,
-                      message: "poll added successfully",
+                      message: "poll and it's answers added successfully",
                     });
                   });
             }else{
@@ -54,19 +54,24 @@ exports.createPoll = asyncHandler(async (req,res,next) => {
 
     //getAllpolls
     exports.getPolls = asyncHandler(async (req, res, next) => {
-        try {
-          const userid = req.params.userid; 
           const polls = await Polls.findAll({
             where: {
-              userid: userId, 
+              userid: userid, 
             },
             order: [["id", "DESC"]],
             raw: true,
           });
-      
-          res.status(200).json(polls);
-        } catch (error) {
-          res.status(400).json({ error: error.message });
+          if(polls) res.status(200).json(polls);
+          else res.status(400).json({ error: error.message });
+      });
+    exports.getPoll = asyncHandler(async(req,res,next) =>{
+      const pollid = req.params.pollid;
+      const poll = await polls.findOne({
+        where: {
+          id: pollid,
         }
       });
+      if(poll) res.status(200).json(poll);
+      else res.status(400).json("Poll doesn't exist!");
+    })
       
