@@ -42,15 +42,15 @@ exports.createComment = asyncHandler(async(req,res,netx) =>{
 // });
 //writing another getComments
   exports.getComments = asyncHandler(async(req, res, next)=>{
-    const {pollid} = req.params;
-    comments.findAll({
+    const {pollid} = req.params.pollid;
+    await comments.findAll({
       where : {
         pollid : pollid,
         order: [["posteddate","DESC"]],
         raw: true
       }
     })
-    res.status(200).json(commentos);
+    res.status(200).json(comments);
   });
 
 exports.editComments = asyncHandler(async(req,res,next)=>{
