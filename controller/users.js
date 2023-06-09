@@ -70,7 +70,7 @@ exports.createUsers = asyncHandler(async (req, res, next) => {
 
   exports.getUsers = asyncHandler(async (req,res,next) => {
     //method for admin that gets every users
-      await users.findAll({
+      const users  = await users.findAll({
         raw: true,   
         order: [["id","DESC"]],
         raw: true,
@@ -79,7 +79,7 @@ exports.createUsers = asyncHandler(async (req, res, next) => {
           message: "Серверийн алдаа",
         });
       });
-      res.status(200).json({
+      res.status(200).json({users,
       message: "List of users"
       });
     });  
