@@ -138,5 +138,19 @@ exports.createUsers = asyncHandler(async (req, res, next) => {
         });
       });
   });
+
+  //get username controller
+  exports.getUsername = asyncHandler( async ( req,res,next)=>{
+    const userid = req.params.id;
+    const user = await users.findById({
+      where: {
+        id: userid,
+      }
+    });
+    if(user) res.status(200).json(user.username);
+    else res.status(400).json({
+        message: "Unknown"
+    });
+  });
       
 
