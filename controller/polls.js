@@ -73,5 +73,6 @@ exports.createPoll = asyncHandler(async (req,res,next) => {
       });
       if(poll) res.status(200).json(poll);
       else res.status(400).json("Poll doesn't exist!");
-    })
+    });
+    
       
