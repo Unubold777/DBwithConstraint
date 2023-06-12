@@ -1,0 +1,1 @@
+//make our own index out of blog server index
