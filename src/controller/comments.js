@@ -57,7 +57,7 @@ exports.editComments = asyncHandler(async(req,res,next)=>{
   try {
     const { commentsid } = req.params;
     const user = req.user;
-    const comment = await comments.findById();
+    const comment = await comments.findById(commentsid);
     if ( commentsid+ "" !== usersid + "") {
       throw new Error("You cannot edit that comment, because you not owner");
     }
