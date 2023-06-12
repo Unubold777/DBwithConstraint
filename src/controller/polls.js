@@ -100,3 +100,22 @@ exports.createPoll = asyncHandler(async (req,res,next) => {
         res.status(400).json({error: e.message});
       }
     });
+     exports.updatePoll = asyncHandler(async (req,res,next)=>{
+      const {pollid} = req.params;
+      const {user} = req.user;
+      const question = req.body;
+      const poll = await polls.findById(pollid);
+      if(poll){
+        if(poll.userid +"" ==""+user.id){
+          poll.question = question ? question:undefined;
+          poll.save();
+          res.status(200).json("Poll updated succesfully");
+        }
+        else{
+          res.status(200).json("Can't edit because you're not the owner");
+        }
+      }
+      else{
+        res.status(200).json("Poll doesn't exist!");
+      }
+     });
