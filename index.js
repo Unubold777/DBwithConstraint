@@ -1,1 +1,1 @@
-//make our own index out of blog server index
+//dont have to write index here!
